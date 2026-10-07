@@ -1,0 +1,1686 @@
+/* ===================================================================
+   Eletrotech Marechal + OxiLife Fish — Stylesheet
+   =================================================================== */
+
+:root {
+  /* Eletrotech — marca principal */
+  --et-blue-deep: #0b2a63;
+  --et-blue: #1653c9;
+  --et-orange: #f2701c;
+  --et-orange-deep: #d85b0c;
+  --et-ink: #f2f3f7;
+  --et-paper: #0a0a0d;
+  --et-surface: #141417;
+  --et-surface-2: #1b1b1f;
+  --et-line: #2a2a30;
+
+  /* OxiLife Fish — projeto */
+  --ox-navy-deep: #071a38;
+  --ox-navy: #10326f;
+  --ox-cyan: #00d2ff;
+
+  /* Ocean Theme para seções Eletrotech */
+  --bg-ocean-1: #06213a; /* rgb(6, 33, 58) */
+  --bg-ocean-2: #0a3a5c; /* rgb(10, 58, 92) */
+  --bg-ocean-3: #0b4f73; /* rgb(11, 79, 115) */
+
+  /* Overlays para fundo_aquario - Trechos 1 e 2 */
+  --overlay-hl: rgba(4, 15, 31, 0.90);
+  --overlay-services: rgba(6, 23, 42, 0.86);
+  --overlay-gallery: rgba(10, 37, 64, 0.82);
+  --overlay-process: rgba(6, 23, 42, 0.86);
+  --overlay-cred: rgba(4, 15, 31, 0.92);
+
+  --overlay-flow: rgba(16, 50, 111, 0.85);
+  --overlay-products: rgba(11, 35, 75, 0.85);
+  --overlay-panel: rgba(7, 26, 56, 0.90);
+
+  /* Hero Video Overlay */
+  --hero-overlay-start: rgba(6, 33, 58, 0.88);
+  --hero-overlay-mid: rgba(6, 33, 58, 0.72);
+  --hero-overlay-end: rgba(10, 58, 92, 0.45);
+
+  /* OxiLife Image Overlay */
+  --ox-overlay-top: rgba(6, 33, 58, 0.88);
+  --ox-overlay-hero: rgba(7, 26, 56, 0.65);
+
+  /* Shared backgrounds (DRY: referenced by multiple sections) */
+  --bg-trust-gallery: url('images/bg-eletrico-trust-gallery-cred.jpeg');
+
+  /* Typography */
+  --font-archivo: 'Archivo', sans-serif;
+  --font-bebas: 'Bebas Neue', sans-serif;
+
+  /* Spacing & radius tokens */
+  --radius-s: 4px;
+  --radius-m: 10px;
+  /* Textura de Grão */
+  --grain-opacity: 0.05;
+  --grain-scale: 1;
+  
+  --grain-scale: 1;
+
+  --maxw: 1180px;
+  --section-pad: 96px;
+  --section-pad-mobile: 64px;
+}
+
+/* =================== RESET & BASE =================== */
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: var(--font-archivo);
+  color: var(--et-ink);
+  background: var(--et-paper);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+h1, h2, h3 { margin: 0; line-height: 1.1; }
+p { margin: 0; }
+button { font-family: inherit; cursor: pointer; border: none; }
+
+.wrap {
+  position: relative;
+  z-index: 2;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+/* =================== UTILITY / BUTTONS =================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 26px;
+  border-radius: var(--radius-s);
+  font-weight: 700;
+  font-size: 15px;
+  min-height: 48px;              /* touch-friendly */
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+
+.btn-primary { background: var(--et-orange); color: #fff; }
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(242, 112, 28, .35);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: #fff;
+  border: 1.5px solid rgba(255, 255, 255, .35);
+}
+.btn-ghost:hover {
+  background: var(--et-orange);
+  border-color: var(--et-orange);
+  color: #fff;
+}
+
+.btn-ox { background: #fff; color: var(--ox-navy-deep); }
+.btn-ox:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, .25);
+}
+
+.btn-ox-line {
+  background: transparent;
+  color: var(--ox-cyan);
+  border: 1.5px solid var(--ox-cyan);
+  box-shadow: 0 0 15px rgba(0, 210, 255, 0.15);
+}
+.btn-ox-line:hover { background: rgba(0, 210, 255, .15); box-shadow: 0 0 25px rgba(0, 210, 255, 0.3); }
+
+/* =================== TEXTURA DE GRÃO =================== */
+.bg-grain {
+  position: relative;
+}
+.bg-grain::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: var(--grain-opacity);
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  transform: scale(var(--grain-scale));
+}
+
+/* =================== TOP NAV =================== */
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(6, 33, 58, .85);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.nav-inner {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 14px 28px;
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+
+.nav-logo {
+  justify-self: start;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+  font-size: 18px;
+  color: #fff;
+  flex-shrink: 0;
+}
+.nav-logo img {
+  height: 48px; /* Mesma altura base do botão Falar no WhatsApp */
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+.nav-logo .bolt { color: var(--et-orange); }
+.nav-logo-sub { font-weight: 400; opacity: .7; }
+
+.nav-links {
+  justify-self: center;
+  display: flex;
+  gap: var(--nav-gap, 36px);
+  align-items: center;
+  margin: 0;
+}
+.nav-links a {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--et-ink);
+  opacity: .8;
+  padding: 6px 0;
+  border-bottom: 2px solid transparent;
+  transition: .2s;
+}
+.nav-links a:hover {
+  opacity: 1;
+  border-color: var(--et-orange);
+}
+
+.nav-actions {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: var(--nav-actions-gap, 24px);
+}
+
+.lang-switcher {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #6b7690;
+  font-weight: 600;
+  font-size: 14px;
+}
+.lang-switcher button {
+  background: none;
+  border: none;
+  color: #6b7690;
+  cursor: pointer;
+  padding: 10px 4px; /* Aumentar a área de clique: min 40px altura assumindo texto de 14px */
+  min-height: 40px;
+  min-width: 40px;
+  font-weight: 600;
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lang-switcher button:hover {
+  color: #fff;
+}
+.lang-switcher button.active {
+  color: var(--et-orange);
+}
+
+.nav-cta { display: flex; gap: 12px; }
+.nav-cta .btn { padding: 10px 24px; font-size: 14px; }
+.mobile-cta { display: none; }
+
+/* Burger (hidden on desktop, shown on ≤980px) */
+.burger {
+  display: none;
+  background: none;
+  width: 28px;
+  height: 22px;
+  position: relative;
+  z-index: 51;
+  flex-shrink: 0;
+}
+.burger span {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--et-ink);
+  transition: .3s ease;
+}
+.burger span:nth-child(1) { top: 0; }
+.burger span:nth-child(2) { top: 10px; }
+.burger span:nth-child(3) { top: 20px; }
+
+.burger.is-open span:nth-child(1) { transform: translateY(10px) rotate(45deg); }
+.burger.is-open span:nth-child(2) { opacity: 0; }
+.burger.is-open span:nth-child(3) { transform: translateY(-10px) rotate(-45deg); }
+
+/* =================== HERO (ELETROTECH) =================== */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--bg-ocean-1);
+  padding: 88px 0 60px;
+}
+
+.hero-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: 
+    linear-gradient(to bottom, transparent calc(100% - 150px), var(--bg-ocean-1) 100%),
+    linear-gradient(100deg, var(--hero-overlay-start) 0%, var(--hero-overlay-mid) 45%, var(--hero-overlay-end) 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.hero > .wrap {
+  position: relative;
+  z-index: 3;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  gap: 56px;
+  align-items: center;
+}
+
+.hero-kicker {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--et-orange-deep);
+  letter-spacing: .02em;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.hero-kicker::before {
+  content: "";
+  width: 26px;
+  height: 2px;
+  background: var(--et-orange);
+  display: inline-block;
+}
+
+.hero h1 {
+  font-size: clamp(32px, 4.6vw, 58px);
+  font-weight: 800;
+  letter-spacing: -.015em;
+  color: #fff;
+}
+.hero h1 em { font-style: normal; color: var(--et-orange); }
+
+.hero-sub {
+  margin-top: 22px;
+  font-size: 18px;
+  line-height: 1.6;
+  color: #b7bccb;
+  max-width: 46ch;
+}
+
+.hero-actions {
+  margin-top: 34px;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 0;
+  margin-top: 52px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 26px;
+  flex-wrap: wrap;
+}
+.hero-stat {
+  flex: 1 1 auto;
+  padding-right: 24px;
+  min-width: 0;
+}
+.hero-stat b { display: block; font-size: 30px; font-weight: 800; color: #fff; }
+.hero-stat span { font-size: 13.5px; color: #8f94a8; }
+
+.hero-visual { position: relative; }
+.hero-visual .frame {
+  position: relative;
+  border-radius: var(--radius-m);
+  overflow: hidden;
+  box-shadow: 0 30px 60px -20px rgba(11, 42, 99, .35);
+  border: 1px solid var(--et-line);
+}
+.hero-visual img { width: 100%; height: 442px; object-fit: cover; }
+
+/* =================== SHARED SECTION SHELL =================== */
+
+section { padding: var(--section-pad) 0; }
+
+.section-head { max-width: 640px; margin-bottom: 52px; }
+.section-tag {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--et-orange-deep);
+  margin-bottom: 12px;
+}
+.section-head h2 {
+  font-size: clamp(28px, 3.2vw, 40px);
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -.01em;
+}
+.section-head p {
+  margin-top: 16px;
+  font-size: 17px;
+  color: #a9aec2;
+  line-height: 1.65;
+}
+
+
+
+/* =================== OXILIFE HIGHLIGHT (Between Hero and Services) =================== */
+
+.ox-highlight {
+  position: relative;
+  padding: 40px 0 10px; /* spacing */
+  z-index: 5;
+}
+
+.ox-hl-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--ox-navy-deep);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-m);
+  overflow: hidden;
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.35);
+}
+
+.ox-hl-content {
+  padding: 36px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  order: 2; /* Mobile: content below image */
+}
+
+.ox-hl-content .section-tag {
+  color: var(--ox-cyan);
+  margin-bottom: 12px;
+}
+
+.ox-hl-content h2 {
+  font-size: clamp(24px, 6vw, 32px);
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.15;
+  margin-bottom: 12px;
+}
+
+.ox-hl-content p {
+  font-size: 15.5px;
+  color: #b7c4e6;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.ox-hl-content .btn {
+  width: 100%;
+}
+
+.ox-hl-visual {
+  margin: 0;
+  padding: 0;
+  display: block;
+  height: 260px;
+  width: 100%;
+  order: 1; /* Mobile: image top */
+  background: #0a2347;
+}
+
+.ox-hl-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 65% 40%;
+}
+
+/* Tablet & Desktop */
+@media (min-width: 769px) {
+  .ox-highlight {
+    padding: 60px 0 30px;
+  }
+  .ox-hl-card {
+    flex-direction: row;
+    align-items: stretch;
+  }
+  .ox-hl-content {
+    flex: 1;
+    padding: 50px 60px;
+    order: 1; /* Text on left */
+    justify-content: center;
+  }
+  .ox-hl-content h2 {
+    font-size: 34px;
+  }
+  .ox-hl-content p {
+    font-size: 17px;
+    max-width: 44ch;
+  }
+  .ox-hl-content .btn {
+    width: auto;
+    padding: 16px 32px;
+  }
+  .ox-hl-visual {
+    flex: 0 0 45%; /* Photo takes 45% */
+    height: auto;
+    min-height: 340px;
+    order: 2; /* Photo on right */
+  }
+  .ox-hl-visual img {
+    object-position: center;
+  }
+}
+
+@media (max-width: 1024px) and (min-width: 769px) {
+  .ox-hl-content { padding: 40px 30px; }
+  .ox-hl-content h2 { font-size: 28px; }
+  .ox-hl-visual { flex: 0 0 50%; min-height: 300px; }
+}
+
+@media (max-width: 420px) {
+  .ox-hl-content { padding: 30px 20px; }
+}
+
+/* =================== AQUARIUM VIDEO BG (TRECHOS 1 E 2) =================== */
+.video-bg-group {
+  position: relative;
+  grid-column: 1; /* Para o layout de oxilife */
+}
+.video-bg-element {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
+}
+
+.trecho-1 section,
+.trecho-2 section {
+  position: relative;
+  z-index: 2;
+}
+
+/* Espaçamento mais compacto para as 4 seções elétricas */
+.trecho-1 .services { padding: 72px 0 32px 0; }
+.trecho-1 .gallery { padding: 32px 0; }
+.trecho-1 .process { padding: 32px 0; }
+.trecho-1 .credibility { padding: 32px 0 72px 0; }
+
+@media (max-width: 768px) {
+  .trecho-1 .services { padding: 56px 0 24px 0; }
+  .trecho-1 .gallery { padding: 24px 0; }
+  .trecho-1 .process { padding: 24px 0; }
+  .trecho-1 .credibility { padding: 24px 0 56px 0; }
+}
+
+/* Transições e Overlays por Seção (Background do video_aquario) */
+.trecho-1 .ox-highlight { background-image: linear-gradient(180deg, var(--bg-ocean-1) 0%, var(--overlay-hl) 15%, var(--overlay-hl) 100%) !important; background-color: transparent !important; }
+.trecho-1 .services { background-image: linear-gradient(180deg, var(--overlay-hl) 0%, var(--overlay-services) 15%, var(--overlay-services) 100%) !important; background-color: transparent !important; }
+.trecho-1 .gallery { background-image: linear-gradient(180deg, var(--overlay-services) 0%, var(--overlay-gallery) 15%, var(--overlay-gallery) 100%) !important; background-color: transparent !important; }
+.trecho-1 .process { background-image: linear-gradient(180deg, var(--overlay-gallery) 0%, var(--overlay-process) 15%, var(--overlay-process) 100%) !important; background-color: transparent !important; }
+.trecho-1 .credibility { background-image: linear-gradient(180deg, var(--overlay-process) 0%, var(--overlay-cred) 30%, var(--bg-ocean-1) 100%) !important; background-color: transparent !important; }
+
+.trecho-2 .ox-flow { background-image: linear-gradient(180deg, var(--ox-navy-deep) 0%, var(--overlay-flow) 15%, var(--overlay-flow) 100%) !important; background-color: transparent !important; }
+.trecho-2 .ox-products { background-image: linear-gradient(180deg, var(--overlay-flow) 0%, var(--overlay-products) 15%, var(--overlay-products) 100%) !important; background-color: transparent !important; }
+.trecho-2 .ox-panel-feature { background-image: linear-gradient(180deg, var(--overlay-products) 0%, var(--overlay-panel) 30%, var(--et-paper) 100%) !important; background-color: transparent !important; }
+
+/* Fallback Plano B Mobile e Movimento Reduzido */
+@media (max-width: 768px), (prefers-reduced-motion: reduce) {
+  .video-bg-element {
+    display: none !important;
+  }
+  .video-bg-group {
+    background-color: var(--ox-navy-deep);
+    background-image: url('images/bg-oxilife-hero-tanque.jpeg');
+    background-size: cover;
+    background-position: center;
+  }
+}
+
+/* =================== SERVICES =================== */
+
+.services {
+  position: relative;
+}
+
+/* Scrollable tab bar (touch-friendly on mobile) */
+.svc-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 40px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;          /* Firefox */
+  padding-bottom: 5px;
+}
+.svc-tabs::-webkit-scrollbar { display: none; }
+
+.svc-tab {
+  background: transparent;
+  padding: 14px 4px;
+  margin-right: 34px;
+  font-weight: 700;
+  font-size: 15.5px;
+  color: #8a92a6;
+  border-bottom: 2.5px solid transparent;
+  cursor: pointer;
+  transition: .2s;
+  white-space: nowrap;
+  flex-shrink: 0;
+  min-height: 44px;              /* touch target */
+}
+.svc-tab.active { color: #fff; border-color: var(--et-orange); }
+
+.svc-panels { position: relative; min-height: 380px; }
+.svc-panel { display: none; }
+.svc-panel.active { display: block; animation: fadein .35s ease; }
+
+@keyframes fadein {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.svc-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+.svc-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-left: 3px solid var(--et-orange);
+  border-radius: 6px;
+  padding: 32px 30px;
+  transition: .2s;
+}
+.svc-card:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+  border-left-color: var(--et-orange);
+}
+.svc-card h3 { font-size: 17.5px; font-weight: 700; color: #fff; margin-bottom: 12px; }
+.svc-card p   { font-size: 14.5px; color: #9aa0b3; line-height: 1.6; }
+
+/* =================== GALLERY / PRODUCTS (ELETROTECH) =================== */
+
+.gallery {
+  position: relative;
+}
+
+/* Carrossel Trabalhos Realizados */
+.gal-carousel-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin: 0 -28px; /* sangria no mobile para as fotos irem ate a borda */
+}
+
+.gal-carousel {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+  padding: 0 28px; /* respiro inicial igual ao wrap */
+  cursor: grab;
+  outline: none;
+}
+.gal-carousel::-webkit-scrollbar { display: none; }
+.gal-carousel:active { cursor: grabbing; }
+
+.gal-item {
+  position: relative;
+  border-radius: var(--radius-m);
+  overflow: hidden;
+  background: var(--et-blue-deep);
+  flex: 0 0 85%; /* mobile: 1 foto ocupando 85% */
+  aspect-ratio: 4/3; /* proporção uniforme */
+  scroll-snap-align: center;
+  box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.3);
+}
+
+.gal-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .5s ease;
+  pointer-events: none; /* evita drag fantasma de img */
+}
+
+/* Opcional: no mobile, evitar hover scale se não desejar, mas mantido pra manter o layout desktop rico */
+@media (hover: hover) {
+  .gal-item:hover img { transform: scale(1.04); }
+}
+
+.gal-cap {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  padding: 24px 16px 14px;
+  background: linear-gradient(0deg, rgba(7, 20, 45, .95) 0%, rgba(7, 20, 45, 0) 100%);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  pointer-events: none;
+}
+
+/* Setas de Navegação */
+.gal-arrow {
+  display: none; /* oculta no mobile */
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  background: var(--et-orange);
+  border: none;
+  border-radius: 50%;
+  color: #fff;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  transition: .2s ease;
+  align-items: center;
+  justify-content: center;
+}
+.gal-arrow svg { width: 24px; height: 24px; }
+.gal-arrow:hover:not(:disabled) { background: var(--et-orange-deep); transform: translateY(-50%) scale(1.05); }
+.gal-arrow:disabled { opacity: 0.3; cursor: not-allowed; }
+
+.gal-prev { left: 8px; }
+.gal-next { right: 8px; }
+
+/* Indicadores de posição (dots) */
+.gal-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 24px;
+}
+.gal-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  transition: .2s;
+  position: relative;
+}
+/* Aumentar área de toque dos dots */
+.gal-dot::after {
+  content: '';
+  position: absolute;
+  top: -10px; right: -10px; bottom: -10px; left: -10px;
+}
+.gal-dot.active {
+  background: var(--et-orange);
+  transform: scale(1.3);
+}
+
+/* Adaptação para Tablet/Desktop */
+@media (min-width: 640px) {
+  .gal-item {
+    flex: 0 0 calc(50% - 6px); /* 2 por vez em telas médias */
+  }
+}
+@media (min-width: 1024px) {
+  .gal-carousel-wrapper {
+    margin: 0; /* zera a sangria no desktop */
+  }
+  .gal-carousel {
+    padding: 0;
+    gap: 20px;
+  }
+  .gal-item {
+    flex: 0 0 calc(33.333% - 14px); /* ~3 fotos por vez */
+  }
+  .gal-arrow {
+    display: flex; /* mostra setas */
+  }
+  .gal-prev { left: -24px; }
+  .gal-next { right: -24px; }
+}
+
+/* =================== PROCESS =================== */
+
+.process {
+  position: relative;
+  color: #fff;
+}
+.process .section-tag { color: var(--et-orange); }
+.process .section-head p { color: #c3cde6; }
+
+.proc-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  position: relative;
+}
+.proc-list::before {
+  content: "";
+  position: absolute;
+  top: 22px;
+  left: 6%; right: 6%;
+  height: 1px;
+  background: rgba(255, 255, 255, .18);
+}
+.proc-item { position: relative; padding-top: 64px; padding-right: 24px; }
+.proc-num {
+  position: absolute;
+  top: 0; left: 0;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--et-orange);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 16px;
+  z-index: 2;
+}
+.proc-item h3 { font-size: 16.5px; margin-bottom: 10px; }
+.proc-item p   { font-size: 14px; color: #b9c4e0; line-height: 1.6; }
+
+/* =================== CREDIBILITY =================== */
+
+.credibility {
+  position: relative;
+}
+
+.cred-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+.cred-quote { font-size: 22px; line-height: 1.55; color: #fff; font-weight: 500; }
+.cred-quote span {
+  color: var(--et-orange);
+  font-size: 40px;
+  line-height: 0;
+  vertical-align: -10px;
+  font-weight: 800;
+}
+.cred-who { margin-top: 22px; font-size: 14px; color: #9aa0b3; }
+.cred-who b { color: #fff; }
+
+.cred-points { display: flex; flex-direction: column; gap: 22px; }
+.cred-point { display: flex; gap: 16px; align-items: flex-start; }
+.cred-point .dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--et-orange);
+  margin-top: 8px;
+  flex-shrink: 0;
+}
+.cred-point h4 { font-size: 15.5px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+.cred-point p  { font-size: 14px; color: #9aa0b3; line-height: 1.55; }
+
+/* =================== TRANSITION BAND =================== */
+
+.transition {
+  grid-row: 1;
+  z-index: 2;
+  position: relative;
+  padding: 70px 0;
+  text-align: center;
+  color: #fff;
+}
+.transition p {
+  font-size: 14.5px;
+  color: #9fb1d8;
+  font-weight: 700;
+  letter-spacing: .03em;
+  margin-bottom: 14px;
+}
+.transition h2 {
+  font-size: clamp(24px, 3vw, 34px);
+  font-weight: 800;
+  max-width: 640px;
+  margin: 0 auto;
+  line-height: 1.35;
+}
+.transition .arrow {
+  margin-top: 26px;
+  font-size: 26px;
+  color: #fff;
+  animation: bob 2s ease-in-out infinite;
+}
+
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(8px); }
+}
+
+/* ===========================================================
+   OXILIFE FISH — visual system change (Bebas Neue + navy)
+   =========================================================== */
+
+#oxilife {
+  background: var(--ox-navy-deep);
+  color: #fff;
+  position: relative;
+  padding: 0;
+  overflow: hidden;
+}
+
+.ox-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+.ox-grid > * {
+  grid-column: 1;
+}
+
+.ox-bg-video {
+  grid-row: 1 / 4;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  z-index: 0;
+}
+
+.ox-top-bg {
+  grid-row: 1 / 4;
+  background-image: 
+    linear-gradient(180deg, 
+      var(--bg-ocean-1) 0%, 
+      var(--ox-overlay-top) 150px, 
+      var(--ox-overlay-hero) calc(100% - 150px), 
+      var(--ox-navy) 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.ox-sub-placeholder { grid-row: 2; height: 60px; }
+
+/* OxiLife sub-nav */
+.ox-sub {
+  grid-row: 2 / 10;
+  align-self: start;
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgba(7, 26, 56, .65);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, .08);
+}
+.ox-sub-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 28px;
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+.ox-brand { display: flex; align-items: center; gap: 10px; }
+.ox-brand b {
+  font-family: var(--font-bebas);
+  font-size: 24px;
+  letter-spacing: .01em;
+}
+.ox-brand b em { font-style: normal; color: #fff; }
+
+.ox-nav-links { display: flex; gap: 30px; }
+.ox-nav-links a {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #c7d4ef;
+  letter-spacing: .02em;
+}
+.ox-nav-links a:hover { color: #fff; }
+
+/* OxiLife hero */
+.ox-hero {
+  grid-row: 3;
+  z-index: 2;
+  position: relative;
+  padding: 110px 0 90px;
+  background-image: radial-gradient(900px 420px at 90% 0%, rgba(255,255,255,.05), transparent 60%);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.ox-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr .82fr;
+  gap: 50px;
+  align-items: center;
+}
+
+.ox-hero-tag {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13.5px;
+  color: #9db4e6;
+  font-weight: 600;
+  margin-bottom: 22px;
+}
+.ox-hero-tag .pulse {
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: var(--ox-cyan);
+  box-shadow: 0 0 0 0 rgba(0, 210, 255, .6);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(0, 210, 255, .55); }
+  70%  { box-shadow: 0 0 0 12px rgba(0, 210, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 210, 255, 0); }
+}
+
+.ox-hero h1 {
+  font-family: var(--font-bebas);
+  font-weight: 400;
+  font-size: clamp(44px, 6.4vw, 84px);
+  line-height: .98;
+  letter-spacing: .01em;
+  color: #fff;
+}
+.ox-hero h1 em {
+  font-style: normal;
+  color: var(--ox-cyan);
+  text-shadow: 0 0 25px rgba(0, 210, 255, 0.4);
+}
+
+.ox-hero-sub {
+  margin-top: 26px;
+  font-size: 17.5px;
+  line-height: 1.65;
+  color: #c1cdea;
+  max-width: 44ch;
+}
+
+.ox-hero-actions { margin-top: 34px; display: flex; gap: 14px; flex-wrap: wrap; }
+
+.ox-hero-metrics { display: flex; gap: 36px; margin-top: 56px; flex-wrap: wrap; }
+.ox-metric b {
+  font-family: var(--font-bebas);
+  font-size: 34px;
+  color: #fff;
+  display: block;
+}
+.ox-metric span { font-size: 12.5px; color: #93a3ce; }
+
+/* OxiLife hero visual */
+.ox-hero-visual { position: relative; }
+.ox-hero-visual .frame {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, .15);
+  box-shadow: 0 40px 80px -20px rgba(0, 0, 0, .55);
+}
+.ox-hero-visual img { width: 100%; height: 460px; object-fit: cover; }
+
+
+/* OxiLife shared section head */
+.ox-section { padding: 100px 0; position: relative; }
+.ox-section-head { max-width: 620px; margin-bottom: 54px; }
+.ox-tag {
+  font-family: var(--font-bebas);
+  font-size: 16px;
+  letter-spacing: .05em;
+  color: #6fa8ff;
+  margin-bottom: 14px;
+}
+.ox-section-head h2 {
+  font-family: var(--font-bebas);
+  font-weight: 400;
+  font-size: clamp(32px, 4vw, 48px);
+  letter-spacing: .005em;
+  color: #fff;
+}
+.ox-section-head p {
+  margin-top: 16px;
+  font-size: 16.5px;
+  color: #b7c4e6;
+  line-height: 1.65;
+}
+
+
+/* Fallback Plano B Mobile e Movimento Reduzido */
+@media (max-width: 768px), (prefers-reduced-motion: reduce) {
+  .video-bg-element {
+    display: none !important;
+  }
+  .video-bg-group {
+    background-color: var(--ox-navy-deep);
+    background-image: url('images/bg-oxilife-hero-tanque.jpeg');
+    background-size: cover;
+    background-position: center;
+  }
+}
+
+/* OxiLife flow */
+.ox-flow {
+}
+.ox-flow-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  position: relative;
+}
+.ox-flow-grid::before {
+  content: "";
+  position: absolute;
+  top: 26px;
+  left: 5%; right: 5%;
+  height: 1px;
+  background: rgba(255, 255, 255, .15);
+}
+.ox-flow-item { position: relative; padding-top: 72px; padding-right: 20px; }
+.ox-flow-num {
+  position: absolute;
+  top: 0; left: 0;
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, .3);
+  background: var(--ox-navy-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-bebas);
+  font-size: 20px;
+  color: #fff;
+  z-index: 2;
+}
+.ox-flow-item h3 { font-size: 16px; font-weight: 700; margin-bottom: 10px; color: #fff; }
+.ox-flow-item p   { font-size: 13.8px; color: #a9b8dd; line-height: 1.6; }
+
+/* OxiLife products */
+.ox-products {
+  background-color: var(--ox-navy-deep);
+  background-image: 
+    linear-gradient(rgba(7, 26, 56, 0.88), rgba(7, 26, 56, 0.88)),
+    url('images/deco-bolhas-peixes-products.svg');
+  background-size: cover;
+  background-position: top;
+}
+.ox-prod-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+.ox-prod-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: linear-gradient(155deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+  border: 1px solid rgba(255, 255, 255, .1);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: .25s;
+}
+.ox-prod-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(255, 255, 255, .28);
+}
+.ox-prod-img { 
+  flex: 0 0 40%;
+  height: 280px; 
+  overflow: hidden; 
+  background: #0a2347; 
+}
+.ox-prod-img img { width: 100%; height: 100%; object-fit: cover; }
+
+.ox-prod-body { 
+  flex: 1; 
+  padding: 34px 40px; 
+}
+.ox-prod-body h3 {
+  font-family: var(--font-bebas);
+  font-size: 24px;
+  letter-spacing: .01em;
+  color: #fff;
+  margin-bottom: 10px;
+}
+.ox-prod-body p {
+  font-size: 14px;
+  color: #aebbe0;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+.ox-prod-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+.ox-prod-tags span {
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 20px;
+  background: rgba(111, 168, 255, .14);
+  color: #8fb6ff;
+}
+
+/* OxiLife panel feature */
+.ox-panel-feature {
+  background-color: var(--ox-navy);
+  background-image: 
+    linear-gradient(rgba(16, 50, 111, 0.88), rgba(16, 50, 111, 0.88)),
+    url('images/deco-bolhas-peixes-panel.svg');
+  background-size: cover;
+  background-position: top;
+}
+.ox-pf-grid {
+  display: grid;
+  grid-template-columns: .9fr 1.1fr;
+  gap: 60px;
+  align-items: center;
+}
+.ox-pf-visual {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, .14);
+  box-shadow: 0 30px 70px -20px rgba(0, 0, 0, .5);
+}
+.ox-pf-visual img { width: 100%; height: 520px; object-fit: cover; }
+
+.ox-pf-list { display: flex; flex-direction: column; gap: 24px; }
+.ox-pf-item {
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-left: 3px solid var(--ox-cyan);
+  border-radius: 6px;
+  padding: 24px 26px;
+  transition: .2s;
+}
+.ox-pf-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+  border-left-color: var(--ox-cyan);
+}
+.ox-pf-item h4 { font-size: 16.5px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+.ox-pf-item p   { font-size: 14.5px; color: #a9b8dd; line-height: 1.6; }
+
+/* OxiLife CTA */
+.ox-cta {
+  background-color: var(--ox-navy-deep);
+  background-image: url('images/deco-bolhas-peixes-cta.svg');
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+  padding: 90px 0;
+  position: relative;
+  overflow: hidden;
+}
+.ox-cta h2 {
+  font-family: var(--font-bebas);
+  font-weight: 400;
+  font-size: clamp(34px, 5vw, 58px);
+  color: #fff;
+  max-width: 760px;
+  margin: 0 auto;
+  line-height: 1.05;
+}
+.ox-cta p {
+  margin-top: 20px;
+  font-size: 16.5px;
+  color: #b7c4e6;
+}
+
+
+/* Inline‐styled h2 in ox-sonda section — moved to CSS class */
+.ox-pf-title {
+  font-family: var(--font-bebas);
+  font-weight: 400;
+  font-size: clamp(28px, 3.4vw, 42px);
+  color: #fff;
+  margin-bottom: 28px;
+}
+
+/* =================== FOOTER =================== */
+
+footer {
+  background: #060608;
+  color: #c7d0e8;
+  padding: 70px 0 30px;
+}
+.foot-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: 50px;
+  margin-bottom: 50px;
+}
+.foot-brand { display: flex; flex-direction: column; gap: 16px; }
+.foot-brand-name { font-weight: 800; font-size: 19px; color: #fff; }
+.foot-brand p { font-size: 13.5px; color: #8892ab; line-height: 1.6; max-width: 32ch; }
+.foot-brand p + p { margin-top: 4px; }
+.foot-brand a { color: #c7d0e8; }
+
+.foot-col h4 { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 16px; }
+.foot-col a {
+  display: block;
+  font-size: 13.5px;
+  color: #95a0bd;
+  margin-bottom: 11px;
+  min-height: 32px;
+  line-height: 32px;
+}
+.foot-col a:hover { color: #fff; }
+
+.foot-bottom {
+  border-top: 1px solid rgba(255, 255, 255, .08);
+  padding-top: 24px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 12.5px;
+  color: #6c7793;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* ===================================================================
+   RESPONSIVE — intermediate (≤1200px)
+   =================================================================== */
+
+@media (max-width: 1200px) {
+  .nav-links { --nav-gap: 20px; }
+  .nav-actions { --nav-actions-gap: 16px; }
+  .nav-cta .btn { padding: 10px 16px; }
+}
+
+/* ===================================================================
+   RESPONSIVE — tablet (≤1024px)
+   =================================================================== */
+
+@media (max-width: 1024px) {
+  .nav-inner {
+    display: flex;
+    justify-content: space-between;
+  }
+  /* Two-column grids → single column */
+  .hero-grid,
+  .cred-grid,
+  .ox-hero-grid,
+  .ox-pf-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-visual { order: -1; }
+
+  /* Services & gallery → 2 cols (gallery), 1 col (services) */
+  .svc-list { grid-template-columns: 1fr; }
+  .gal-grid { grid-template-columns: repeat(2, 1fr); }
+
+  /* Process & flow → 2 cols, no connector line */
+  .proc-list,
+  .ox-flow-grid {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 40px;
+  }
+  .proc-list::before,
+  .ox-flow-grid::before { display: none; }
+
+  /* Products → mobile layout */
+  .ox-prod-card {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .ox-prod-img {
+    flex: none;
+    height: 240px;
+  }
+  .ox-prod-body {
+    padding: 26px 24px 30px;
+  }
+
+  /* Footer → 2 cols */
+  .foot-grid { grid-template-columns: 1fr 1fr; }
+
+  /* Elementos do topo acima do menu */
+  .nav-logo, .nav-actions {
+    position: relative;
+    z-index: 52;
+  }
+
+  .nav.is-open {
+    background: transparent;
+    backdrop-filter: none;
+    border-bottom-color: transparent;
+  }
+
+  /* Mobile nav */
+  .nav-links {
+    display: flex;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    height: 100dvh;
+    background: linear-gradient(160deg, var(--bg-ocean-1) 0%, var(--bg-ocean-2) 100%);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 80px 24px 40px;
+    z-index: 50;
+    
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.4s cubic-bezier(0.22, 0.61, 0.36, 1), 
+                opacity 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+  .nav-links.is-open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .nav-links a {
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+    padding: 12px 24px;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    border-bottom: none;
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+  .nav-links.is-open a {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.4s cubic-bezier(0.22, 0.61, 0.36, 1), 
+                transform 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  /* Cascata */
+  .nav-links.is-open a:nth-child(1) { transition-delay: 0.10s; }
+  .nav-links.is-open a:nth-child(2) { transition-delay: 0.15s; }
+  .nav-links.is-open a:nth-child(3) { transition-delay: 0.20s; }
+  .nav-links.is-open a:nth-child(4) { transition-delay: 0.25s; }
+  .nav-links.is-open a:nth-child(5) { transition-delay: 0.30s; }
+  .nav-links.is-open a:nth-child(6) { transition-delay: 0.35s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nav-links, .nav-links.is-open, .nav-links a, .nav-links.is-open a {
+      transition: none !important;
+      transform: none !important;
+    }
+  }
+
+  .nav-links .mobile-cta {
+    margin-top: 32px;
+    width: auto;
+    min-width: 240px;
+    justify-content: center;
+  }
+  .nav-cta { display: none; } /* Esconde do header superior */
+  .burger { 
+    display: block; 
+    width: 44px; 
+    height: 44px; 
+    padding: 11px 8px; 
+    border-radius: 50%;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.2s;
+  }
+  .burger:active, .burger:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  .burger:focus-visible {
+    outline: 2px solid var(--et-orange);
+    outline-offset: 2px;
+  }
+  .burger span { background: #fff; } /* Garante que os traços sejam brancos no mobile já que o fundo é escuro */
+  .lang-switcher { margin-left: 0; }
+  .nav-actions { gap: 12px; }
+
+  /* OxiLife sub-nav: stack or hide links */
+  .ox-nav-links { gap: 16px; }
+  .ox-sub-inner { padding: 12px 20px; }
+
+  /* Credibility grid gap */
+  .cred-grid { gap: 40px; }
+
+  /* Panel feature image */
+  .ox-pf-visual img { height: 380px; }
+  .hero-visual img { height: 357px; }
+}
+
+/* ===================================================================
+   RESPONSIVE — large mobile / small tablet (≤768px)
+   =================================================================== */
+
+@media (max-width: 768px) {
+  .hero { padding: 70px 0 48px; }
+  section { padding: 80px 0; }
+  .ox-section { padding: 80px 0; }
+
+  .hero-video { object-position: center; }
+  .hero::after {
+    background: 
+      linear-gradient(to bottom, transparent calc(100% - 80px), var(--bg-ocean-1) 100%),
+      linear-gradient(100deg, rgba(6,33,58, 0.96) 0%, rgba(6,33,58, 0.88) 100%);
+  }
+
+  .svc-list { grid-template-columns: 1fr; }
+  .gal-grid { grid-template-columns: repeat(2, 1fr); }
+
+  /* ox-prod-grid adjusted in 980px media query */
+  .foot-grid { grid-template-columns: 1fr; gap: 32px; }
+
+  .ox-hero { padding: 80px 0 60px; }
+  .ox-cta { padding: 80px 0; }
+
+  .hero-visual img { height: 306px; }
+  .ox-hero-visual img { height: 360px; }
+  .ox-pf-visual img { height: 320px; }
+
+  .cred-quote { font-size: 20px; }
+
+  /* Buttons: full-width on smaller screens */
+  .hero-actions,
+  .ox-hero-actions {
+    flex-direction: column;
+  }
+  .hero-actions .btn,
+  .ox-hero-actions .btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* ===================================================================
+   RESPONSIVE — mobile (≤600px)
+   =================================================================== */
+
+@media (max-width: 600px) {
+  .wrap { padding: 0 18px; }
+  .hero { padding: 56px 0 36px; }
+  section, .ox-section { padding: var(--section-pad-mobile) 0; }
+
+  /* Gallery → 1 col */
+  .gal-grid { grid-template-columns: 1fr; }
+  .gal-item.big { grid-column: span 1; grid-row: span 1; }
+  .gal-item { height: 220px; }
+
+
+  /* Footer → 1 col */
+  .foot-grid { grid-template-columns: 1fr; gap: 28px; }
+
+  /* Hero image → shorter */
+  .hero-visual img { height: 238px; }
+
+  /* Hero stats → wrap nicely */
+  .hero-stats { flex-wrap: wrap; gap: 20px; padding-top: 20px; margin-top: 32px; }
+  .hero-stat { padding-right: 0; flex: 1 1 45%; }
+
+  /* Process & flow → 1 col */
+  .proc-list,
+  .ox-flow-grid { grid-template-columns: 1fr; }
+
+  /* OxiLife hero tweaks */
+  .ox-hero { padding: 60px 0 50px; }
+  .ox-hero-visual img { height: 280px; }
+  .ox-hero-metrics { gap: 24px; }
+
+  .ox-cta { padding: 54px 0; }
+
+  /* Hide CTA in nav, less clutter */
+  .nav-cta .btn-ghost { display: none; }
+
+  /* OxiLife sub-nav: compact */
+  .ox-nav-links { gap: 14px; }
+  .ox-nav-links a { font-size: 12px; }
+  .ox-sub-inner { padding: 10px 18px; }
+
+  /* Service card padding */
+  .svc-card { padding: 24px 20px; }
+
+  /* Transition section */
+  .transition { padding: 50px 0; }
+}
+
+/* ===================================================================
+   RESPONSIVE — small mobile (≤420px)
+   =================================================================== */
+
+@media (max-width: 420px) {
+  .wrap { padding: 0 14px; }
+
+  .nav-inner { padding: 12px 14px; }
+  .nav-logo { font-size: 16px; }
+  .nav-logo img { 
+    height: 38px;
+  }
+
+  .hero h1 { font-size: 28px; }
+  .hero-sub { font-size: 16px; }
+  .hero-stat b { font-size: 24px; }
+
+  .section-head h2 { font-size: 24px; }
+  .section-head p { font-size: 15px; }
+
+  .ox-hero h1 { font-size: 38px; }
+  .ox-hero-sub { font-size: 15px; }
+  .ox-metric b { font-size: 28px; }
+
+  .ox-prod-img { height: 180px; }
+
+  .cred-quote { font-size: 18px; }
+
+  .foot-bottom { flex-direction: column; text-align: center; }
+}
+
+/* =================== SCROLL REVEAL (Animações de entrada) =================== */
+
+:root {
+  --reveal-duration: 0.7s;
+  --reveal-distance: 32px;
+  --reveal-distance-desk: 24px;
+  --reveal-stagger: 0.1s;
+}
+
+.js-ready .reveal {
+  opacity: 0;
+  transform: translateY(var(--reveal-distance));
+  transition: opacity var(--reveal-duration) cubic-bezier(0.22, 0.61, 0.36, 1),
+              transform var(--reveal-duration) cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+@media (min-width: 769px) {
+  .js-ready .reveal { transform: translateY(var(--reveal-distance-desk)); }
+}
+
+.js-ready .reveal.reveal-zoom {
+  transform: translateY(var(--reveal-distance)) scale(0.97);
+}
+@media (min-width: 769px) {
+  .js-ready .reveal.reveal-zoom { transform: translateY(var(--reveal-distance-desk)) scale(0.97); }
+}
+
+.js-ready .reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  will-change: auto;
+}
+
+/* Stagger calculation (inline var --delay) */
+.js-ready .reveal {
+  transition-delay: calc(var(--delay, 0) * var(--reveal-stagger));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js-ready .reveal {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .ox-bg-video {
+    display: none !important;
+  }
+  .ox-top-bg {
+    background-image: 
+      linear-gradient(180deg, 
+        var(--bg-ocean-1) 0%, 
+        var(--ox-overlay-top) 150px, 
+        var(--ox-overlay-hero) calc(100% - 150px), 
+        var(--ox-navy) 100%),
+      url('images/bg-oxilife-hero-tanque.jpeg') !important;
+    background-size: cover !important;
+    background-position: center !important;
+  }
+}
